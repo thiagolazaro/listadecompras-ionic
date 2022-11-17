@@ -8,29 +8,76 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'lista',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../listas/lista-lista/lista-lista.module').then(
+                (m) => m.ListaListaPageModule
+              ),
+          },
+          {
+            path: 'nova',
+            loadChildren: () =>
+              import('../listas/form-lista/form-lista.module').then(
+                (m) => m.FormListaPageModule
+              ),
+          },
+          {
+            path: 'editar/:id',
+            loadChildren: () =>
+            import('../listas/form-lista/form-lista.module').then(
+              (m) => m.FormListaPageModule
+            ),
+          },
+          {
+            path: 'detalhe/id',
+            loadChildren: () =>
+              import('../listas/detalhe-lista/detalhe-lista.module').then(
+                (m) => m.DetalheListaPageModule
+              ),
+          }
+        ],
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'categorias',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import(
+                '../categorias/lista-categoria/lista-categoria.module'
+              ).then((m) => m.ListaCategoriaPageModule),
+          },
+          {
+            path: 'nova',
+            loadChildren: () =>
+              import('../categorias/form-categoria/form-categoria.module').then(
+                (m) => m.FormCategoriaPageModule
+              ),
+          },
+          {
+            path: 'editar:id',
+            loadChildren: () =>
+              import('../categorias/form-categoria/form-categoria.module').then(
+                (m) => m.FormCategoriaPageModule
+              ),
+          }
+        ],
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'sobre',
+        loadChildren: () =>
+          import('../sobre/sobre.module').then((m) => m.SobrePageModule),
       },
-      {
-        path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+    ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    redirectTo: '/tabs/lista',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
