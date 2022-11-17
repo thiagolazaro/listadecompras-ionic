@@ -9,11 +9,11 @@ export class ToastService {
   constructor(private toast: ToastController) { }
 
 
-  Success(message: string) {
+  success(message: string) {
     this.show(message, 'success', 'Sucesso');
   }
 
-  Error(message: string) {
+  error(message: string) {
     this.show(message, 'danger', 'Erro');
   }
 

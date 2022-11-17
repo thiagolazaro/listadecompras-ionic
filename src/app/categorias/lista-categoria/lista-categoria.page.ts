@@ -16,7 +16,7 @@ export class ListaCategoriaPage implements OnInit {
   constructor(
     private toast: ToastService,
     private alert: AlertService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
   ) { }
 
   ngOnInit() {
@@ -53,12 +53,17 @@ export class ListaCategoriaPage implements OnInit {
   }
 
   delete(categoria: Categoria) {
-
+    this.alert.showConfirmDelete(categoria.nome, () => this.executeDelete(categoria));
   }
 
   private executeDelete(categoria: Categoria) {
-    const index = this.categorias.indexOf(categoria);
-    this.categorias.splice(index, -1);
+    try {
+      const index = this.categorias.indexOf(categoria);
+      this.categorias.splice(index, 1);
+      this.toast.success('Categoria excluída com sucesso.');
+    } catch (error) {
+
+    }
   }
 
 }
