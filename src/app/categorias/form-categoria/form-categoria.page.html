@@ -1,9 +1,27 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>form-categoria</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <form #categoriaForm="ngForm">
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input autocapitalize="on" [(ngModel)]="categoria.nome" name="nome" #nome="ngModel" required></ion-input>
+    </ion-item>
+    <ion-item lines="none" *ngIf="nome.invalid && (nome.dirty || nome.touched)">
+      <ion-label color="danger">
+        O campo é obrigatório
+      </ion-label>
+    </ion-item>
+  </form>
+
+  <div class="ion-margin-vertical">
+    <ion-button type="submit" color="primary" expand="block" (click)="onSubmit()" [disabled]="!categoriaForm.form.valid">Salvar</ion-button>
+  </div>
 
 </ion-content>
