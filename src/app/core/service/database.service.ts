@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { SQLitePorter } from '@awesome-cordova-plugins/sqlite-porter/ngx';
 import { DatabaseSeed } from '../database-seed';
 
