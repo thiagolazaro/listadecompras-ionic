@@ -1,9 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>lista-lista</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title *ngIf="!showPesquisar">Listas</ion-title>
+    <ion-buttons slot="primary" *ngIf="!showPesquisar">
+      <ion-button (click)="pesquisaButtonClick()">
+        <ion-icon sslot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar placeholder="Pesquisar" *ngIf="showPesquisar" showCancelButton="true" (ionCancel)="pesquisaBarCancel()" (ionChange)="pesquisaChange($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let lista of listas">
+      <ion-item detail lines="none" [routerLink]="['detalhe', lista.id]">
+        <ion-label>{{lista.nome}}</ion-label>
+      </ion-item>
+
+      <!-- Opção de arrastar botão -->
+      <ion-item-options>
+        <!-- Botão Editar -->
+        <ion-item-option [routerLink]="['/tabs/lista/editar', lista.id]">
+          <ion-icon slot="icon-only" name="create" color="warning"></ion-icon>
+        </ion-item-option>
+        <!-- Botão Excluir -->
+        <ion-item-option (click)="delete(lista)">
+          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

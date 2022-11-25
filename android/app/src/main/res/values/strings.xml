@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">listadecompras</string>
+    <string name="title_activity_main">listadecompras</string>
+    <string name="package_name">dev.thiagolazaro.listadecompras</string>
+    <string name="custom_url_scheme">dev.thiagolazaro.listadecompras</string>
+</resources>
