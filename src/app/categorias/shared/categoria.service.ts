@@ -34,6 +34,46 @@ export class CategoriaService {
     return this.db.executeSQL('select * from categorias;');
   }
 
+  delete(categoria: Categoria) {
+    const sql = 'delete form categorias where id = ?;';
+    const data = [categoria.id];
+
+    return this.db.executeSQL(sql, data);
+  }
+
+  // Popula um array de categorias com os dados que veio do banco
+  fillCategories(rows: any) {
+    const categorias: Categoria[] = [];
+
+    for (let i = 0; i < rows.length; i++) {
+      const item = rows.item(i);
+
+      const categoria = new Categoria();
+      categoria.id = item.id;
+      categoria.nome = item.nome;
+
+      categorias.push(categoria);
+    }
+
+    return categorias;
+  }
+
+  async getAll() {
+    const sql = 'select * from categorias;';
+    const resultado = await this.db.executeSQL(sql);
+    const categorias = this.fillCategories(resultado.rows);
+    return categorias;
+  }
+
+  async filter(text: string) {
+    const sql = 'select * from categorias where name like ?;';
+    const data = [`%${text}%`];
+
+    const resultado = await this.db.executeSQL(sql, data);
+    const categorias = this.fillCategories(resultado.rows);
+    return categorias;
+  }
+
   async getById(id: number) {
     const sql = 'select * from categorias where id = ?;';
     const data = [id];
