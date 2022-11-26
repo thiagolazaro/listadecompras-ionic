@@ -27,16 +27,18 @@ export class CategoriaService {
   }
 
   update(categoria: Categoria) {
-    const sql = 'update categorias set nome = ? where id = ?';
+    const sql = 'update categorias set nome = ? where id = ?;';
     const data = [categoria.nome, categoria.id];
 
-    return this.db.executeSQL(sql, data);
+    this.db.executeSQL(sql, data);
+    return this.db.executeSQL('select * from categorias;');
   }
 
   async getById(id: number) {
-    const sql = 'select * from categorias where id = ?';
+    const sql = 'select * from categorias where id = ?;';
     const data = [id];
     const result = await this.db.executeSQL(sql, data);
+    console.log('getById',result)
     const rows = result.rows;
     const categoria = new Categoria();
     // Verifico se existe linha retornada e se é maior que 0

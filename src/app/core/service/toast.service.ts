@@ -23,7 +23,10 @@ export class ToastService {
       message: message,
       color: color,
       position: 'bottom',
-      duration: 1000
+      duration: 2000
     });
+
+    await toast.present();
   }
+
 }

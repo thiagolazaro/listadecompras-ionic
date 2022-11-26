@@ -29,13 +29,21 @@ export class FormCategoriaPage implements OnInit {
     }
   }
 
-  carregaCategoria(id: number) {
-    return new Categoria();
+  async carregaCategoria(id: number) {
+    this.categoria = await this.categoriaService.getById(id);
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.categoria);
-    this.toast.success('Categoria salva com sucesso');
+    try {
+      const result  = await this.categoriaService.save(this.categoria);
+      this.categoria.id = result.insertId;
+      console.log(this.categoria.id);
+      this.toast.success('Categoria salva com sucesso');
+    } catch (error) {
+      console.log(error);
+      this.toast.error('Ocorreu um erro ao tentar salvar a Categoria.');
+    }
   }
 
 }
