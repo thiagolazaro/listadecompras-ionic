@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Categoria } from '../shared/categoria';
 import { CategoriaService } from '../shared/categoria.service';
+import { NavController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-categoria',
@@ -11,13 +13,25 @@ import { CategoriaService } from '../shared/categoria.service';
 })
 export class FormCategoriaPage implements OnInit {
   titulo: string = 'Nova categoria';
-  categoria!: Categoria;
+  public categoria!: Categoria;
+  public formCategoria!: FormGroup;
+
 
   constructor(
     private route: ActivatedRoute,
+    private nav: NavController,
+    private formBuilder: FormBuilder,
     private toast: ToastService,
     private categoriaService: CategoriaService
-  ) { }
+  ) {
+    this.formCategoria = this.formBuilder.group({
+      nome: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(2)
+      ])],
+    });
+  }
+
 
   ngOnInit() {
     this.categoria = new Categoria();
@@ -34,12 +48,12 @@ export class FormCategoriaPage implements OnInit {
   }
 
   async onSubmit() {
-    console.log(this.categoria);
     try {
       const result  = await this.categoriaService.save(this.categoria);
       this.categoria.id = result.insertId;
       console.log(this.categoria.id);
       this.toast.success('Categoria salva com sucesso');
+      this.nav.pop();
     } catch (error) {
       console.log(error);
       this.toast.error('Ocorreu um erro ao tentar salvar a Categoria.');

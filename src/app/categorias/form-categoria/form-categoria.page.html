@@ -8,20 +8,20 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form #categoriaForm="ngForm">
+  <form [formGroup]="formCategoria" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
-      <ion-input autocapitalize="on" [(ngModel)]="categoria.nome" name="nome" #nome="ngModel" required></ion-input>
+      <ion-input autocapitalize="on" [(ngModel)]="categoria.nome" name="nome" formControlName="nome"></ion-input>
     </ion-item>
-    <ion-item lines="none" *ngIf="nome.invalid && (nome.dirty || nome.touched)">
-      <ion-label color="danger">
+    <ion-item lines="none" *ngIf="formCategoria.get('nome')?.hasError('required')">
+      <ion-label color="danger" >
         O campo é obrigatório
       </ion-label>
     </ion-item>
-  </form>
 
-  <div class="ion-margin-vertical">
-    <ion-button type="submit" color="primary" expand="block" (click)="onSubmit()" [disabled]="!categoriaForm.form.valid">Salvar</ion-button>
-  </div>
+    <div class="ion-margin-vertical">
+      <ion-button type="submit" color="primary" expand="block"  [disabled]="!formCategoria.valid">Salvar</ion-button>
+    </div>
+  </form>
 
 </ion-content>

@@ -19,9 +19,9 @@
       </ion-item>
 
       <!-- Opção de arrastar botão -->
-      <ion-item-options>
+      <ion-item-options side="start">
         <!-- Botão Editar -->
-        <ion-item-option [routerLink]="['/tabs/lista/editar', lista.id]">
+        <ion-item-option [routerLink]="['editar', lista.id]">
           <ion-icon slot="icon-only" name="create" color="warning"></ion-icon>
         </ion-item-option>
         <!-- Botão Excluir -->

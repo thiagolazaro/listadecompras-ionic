@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'lista',
+        path: 'listas',
         children: [
           {
             path: '',
@@ -58,7 +58,7 @@ const routes: Routes = [
               ),
           },
           {
-            path: 'editar:id',
+            path: 'editar/:id',
             loadChildren: () =>
               import('../categorias/form-categoria/form-categoria.module').then(
                 (m) => m.FormCategoriaPageModule
@@ -75,7 +75,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/lista',
+    redirectTo: '/tabs/listas',
     pathMatch: 'full',
   },
 ];

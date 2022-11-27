@@ -30,12 +30,11 @@ export class CategoriaService {
     const sql = 'update categorias set nome = ? where id = ?;';
     const data = [categoria.nome, categoria.id];
 
-    this.db.executeSQL(sql, data);
-    return this.db.executeSQL('select * from categorias;');
+    return this.db.executeSQL(sql, data);
   }
 
   delete(categoria: Categoria) {
-    const sql = 'delete form categorias where id = ?;';
+    const sql = 'delete from categorias where id = ?;';
     const data = [categoria.id];
 
     return this.db.executeSQL(sql, data);
@@ -75,17 +74,16 @@ export class CategoriaService {
   }
 
   async getById(id: number) {
-    const sql = 'select * from categorias where id = ?;';
+    const sql = 'select * from categorias where id = ?';
     const data = [id];
-    const result = await this.db.executeSQL(sql, data);
-    console.log('getById',result)
-    const rows = result.rows;
+    const resultado = await this.db.executeSQL(sql, data);
+    const registro = resultado.rows;
     const categoria = new Categoria();
-    // Verifico se existe linha retornada e se é maior que 0
-    if (rows && rows.lenght > 0) {
-      // item recebe a categoria selecionado pelo id
-      const item = rows.item(0);
-      // Na sequencia passo para o objeto categoria
+    console.log(resultado);
+    // Verifico se existe registro retornado e se é maior que 0
+    if (registro) {
+      console.log('dentro da condição');
+      const item = registro.item(0);
       categoria.id = item.id;
       categoria.nome = item.nome;
     }
