@@ -2,6 +2,7 @@ import { AlertService } from './../../core/service/alert.service';
 import { ToastService } from './../../core/service/toast.service';
 import { Component, OnInit } from '@angular/core';
 import { Lista } from '../shared/lista';
+import { ListaService } from '../shared/lista.service';
 
 @Component({
   selector: 'app-lista-lista',
@@ -14,7 +15,7 @@ export class ListaListaPage implements OnInit {
 
   constructor(
     private toast: ToastService,
-    private alert: AlertService,
+    private alert: AlertService
   ) { }
 
   ngOnInit() {

@@ -58,14 +58,14 @@ export class CategoriaService {
   }
 
   async getAll() {
-    const sql = 'select * from categorias;';
+    const sql = 'select * from categorias';
     const resultado = await this.db.executeSQL(sql);
     const categorias = this.fillCategories(resultado.rows);
     return categorias;
   }
 
   async filter(text: string) {
-    const sql = 'select * from categorias where name like ?;';
+    const sql = 'select * from categorias where nome like ?';
     const data = [`%${text}%`];
 
     const resultado = await this.db.executeSQL(sql, data);
@@ -82,7 +82,6 @@ export class CategoriaService {
     console.log(resultado);
     // Verifico se existe registro retornado e se é maior que 0
     if (registro) {
-      console.log('dentro da condição');
       const item = registro.item(0);
       categoria.id = item.id;
       categoria.nome = item.nome;
