@@ -49,9 +49,8 @@ export class FormCategoriaPage implements OnInit {
 
   async onSubmit() {
     try {
-      const result  = await this.categoriaService.save(this.categoria);
-      this.categoria.id = result.insertId;
-      console.log(this.categoria.id);
+      const resultado  = await this.categoriaService.save(this.categoria);
+      this.categoria.id = resultado.insertId;
       this.toast.success('Categoria salva com sucesso');
       this.nav.pop();
     } catch (error) {

@@ -1,9 +1,27 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>form-lista</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <form [formGroup]="formLista" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input autocapitalize="on" [(ngModel)]="lista.nome" name="nome" formControlName="nome"></ion-input>
+    </ion-item>
+    <ion-item lines="none" *ngIf="formLista.get('nome')?.hasError('required')">
+      <ion-label color="danger" >
+        O campo é obrigatório
+      </ion-label>
+    </ion-item>
+
+    <div class="ion-margin-vertical">
+      <ion-button type="submit" color="primary" expand="block"  [disabled]="!formLista.valid">Salvar</ion-button>
+    </div>
+  </form>
 
 </ion-content>

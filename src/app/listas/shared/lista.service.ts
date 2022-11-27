@@ -13,19 +13,21 @@ export class ListaService {
 
   save(lista: Lista) {
     if (lista.id) {
-
+      return this.update(lista);
+    } else {
+      return this.insert(lista);
     }
   }
 
   insert(lista: Lista) {
     const sql = 'insert into listas (nome) values (?)';
-    const data = [lista.id];
+    const data = [lista.nome];
 
     return this.db.executeSQL(sql, data);
   }
 
   update(lista: Lista) {
-    const sql = 'update categorias set nome= ? where id = ?';
+    const sql = 'update listas set nome = ? where id = ?;';
     const data = [lista.nome, lista.id];
 
     return this.db.executeSQL(sql, data);
@@ -82,6 +84,8 @@ export class ListaService {
       lista.id = item.id;
       lista.nome = item.nome;
     }
+
+    return lista;
   }
 
 }

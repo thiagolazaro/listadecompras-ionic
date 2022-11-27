@@ -15,7 +15,8 @@ export class ListaListaPage implements OnInit {
 
   constructor(
     private toast: ToastService,
-    private alert: AlertService
+    private alert: AlertService,
+    private listaService: ListaService
   ) { }
 
   ngOnInit() {
@@ -26,13 +27,7 @@ export class ListaListaPage implements OnInit {
   }
 
   async showListas() {
-    for (let index = 1; index <= 10; index++) {
-      const lista = new Lista();
-      lista.id = index;
-      lista.nome = `Lista ${index}`;
-
-      this.listas.push(lista);
-    }
+    this.listas = await this.listaService.getAll();
   }
 
   pesquisaButtonClick() {
@@ -47,7 +42,7 @@ export class ListaListaPage implements OnInit {
   async pesquisaChange($event: any) {
     const value = $event.target.value;
     if (value && value.length >= 2){
-
+      this.listas = await this.listaService.fillListas(value);
     }
   }
 
@@ -55,8 +50,10 @@ export class ListaListaPage implements OnInit {
     this.alert.showConfirmDelete(lista.nome, () => this.executeDelete(lista));
   }
 
-  private executeDelete(lista: Lista) {
+  private async executeDelete(lista: Lista) {
     try {
+      await this.listaService.delete(lista);
+
       const index = this.listas.indexOf(lista);
       this.listas.splice(index, 1);
       this.toast.success('Lista excluída com sucesso.');
