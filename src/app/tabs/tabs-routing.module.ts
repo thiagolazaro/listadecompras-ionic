@@ -37,6 +37,25 @@ const routes: Routes = [
               import('../listas/detalhe-lista/detalhe-lista.module').then(
                 (m) => m.DetalheListaPageModule
               ),
+          },
+          {
+            path: 'produtos',
+            children: [
+              {
+                path: 'novo/lista',
+                loadChildren: () =>
+                import('../produtos/form-produto/form-produto.module').then(
+                  (m) => m.FormProdutoPageModule
+                ),
+              },
+              {
+                path: 'editar/lista/:id',
+                loadChildren: () =>
+                import('../produtos/form-produto/form-produto.module').then(
+                  (m) => m.FormProdutoPageModule
+                ),
+              },
+            ],
           }
         ],
       },
