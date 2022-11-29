@@ -42,7 +42,7 @@ const routes: Routes = [
             path: 'produtos',
             children: [
               {
-                path: 'novo/lista',
+                path: 'nova/:lista',
                 loadChildren: () =>
                 import('../produtos/form-produto/form-produto.module').then(
                   (m) => m.FormProdutoPageModule
