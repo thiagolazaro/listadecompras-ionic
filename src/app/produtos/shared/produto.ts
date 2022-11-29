@@ -5,5 +5,5 @@ export class Produto {
   nome!: string;
   sequencia!: number;
   comprada!: boolean;
-  valor!: string;
+  quantidade!: number;
 }

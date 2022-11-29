@@ -1,9 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>form-produto</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <form [formGroup]="formProduto" (ngSubmit)="onSubmit()">
+
+    <ion-item>
+      <ion-label position="stacked">Categoria</ion-label>
+      <ion-select autocapitalize="on" [(ngModel)]="produto.categoria" name="categoria" formControlName="categoria">
+        <ion-select-option value="" select="true"></ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input autocapitalize="on" [(ngModel)]="produto.nome" name="nome" formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input autocapitalize="on" [(ngModel)]="produto.quantidade" name="quantidade" formControlName="quantidade"></ion-input>
+    </ion-item>
+
+
+    <div class="ion-margin-vertical">
+      <ion-button type="submit" color="primary" expand="block"  [disabled]="!formProduto.valid">Salvar</ion-button>
+    </div>
+  </form>
 
 </ion-content>
