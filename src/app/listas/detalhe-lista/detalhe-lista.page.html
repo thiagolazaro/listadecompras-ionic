@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title *ngIf="!showPesquisar">Listas</ion-title>
+    <ion-title *ngIf="!showPesquisar">Detalhes</ion-title>
     <ion-buttons slot="primary" *ngIf="!showPesquisar">
       <ion-button (click)="pesquisaButtonClick()">
         <ion-icon sslot="icon-only" name="search"></ion-icon>
@@ -11,9 +11,10 @@
 </ion-header>
 
 <ion-content>
+  <h4 class="ion-text-center">{{lista.nome}}</h4>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="primary" [routerLink]="['/tabs/listas/produtos/nova', 1]">
+    <ion-fab-button color="primary" [routerLink]="['/tabs/listas/produtos/nova', this.lista.id]">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
