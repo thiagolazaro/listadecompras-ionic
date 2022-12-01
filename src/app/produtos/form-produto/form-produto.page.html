@@ -14,18 +14,28 @@
       <ion-label position="stacked">Categoria</ion-label>
       <ion-select autocapitalize="on" [(ngModel)]="produto.categoria" name="categoria" formControlName="categoria">
         <ion-select-option value="" select="true"></ion-select-option>
+        <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</ion-select-option>
       </ion-select>
     </ion-item>
+    <div class="ion-text-center"  *ngIf="formProduto.get('categoria')?.hasError('required') && (formProduto.get('categoria')?.dirty || formProduto.get('categoria')?.touched)">
+      <ion-text color="danger">O campo é obrigatório</ion-text>
+    </div>
 
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
       <ion-input autocapitalize="on" [(ngModel)]="produto.nome" name="nome" formControlName="nome"></ion-input>
     </ion-item>
+    <div class="ion-text-center"  *ngIf="formProduto.get('nome')?.hasError('required') && (formProduto.get('nome')?.dirty || formProduto.get('nome')?.touched)">
+      <ion-text color="danger">O campo é obrigatório</ion-text>
+    </div>
 
     <ion-item>
-      <ion-label position="stacked">Nome</ion-label>
-      <ion-input autocapitalize="on" [(ngModel)]="produto.quantidade" name="quantidade" formControlName="quantidade"></ion-input>
+      <ion-label position="stacked">Quantidade</ion-label>
+      <ion-input type="number" [(ngModel)]="produto.quantidade" name="quantidade" formControlName="quantidade"></ion-input>
     </ion-item>
+    <div class="ion-text-center"  *ngIf="formProduto.get('quantidade')?.hasError('required') && (formProduto.get('quantidade')?.dirty || formProduto.get('quantidade')?.touched)">
+      <ion-text color="danger">O campo é obrigatório</ion-text>
+    </div>
 
 
     <div class="ion-margin-vertical">

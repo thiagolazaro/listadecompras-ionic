@@ -30,6 +30,9 @@ export class FormProdutoPage implements OnInit {
     private toast: ToastService,
   ) {
     this.formProduto = this.formBuilder.group({
+      categoria: ['', Validators.compose([
+        Validators.required
+      ])],
       nome: ['', Validators.compose([
         Validators.required,
         Validators.minLength(2)
