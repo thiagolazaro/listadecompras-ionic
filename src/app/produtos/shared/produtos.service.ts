@@ -53,4 +53,28 @@ export class ProdutosService {
 
     return produto;
   }
+
+  // Verifica a quantidade de um produto na lista
+  async addQuantidadeProduto(listaId: number, categoriaId: number) {
+    // Exemplo:  COUNT(id) as quantidade
+    // Tem que dar um nome para poder pegar o retorno da função, tipo AVG entre outros
+    // Porque o provider do SQLite não sabe definir um nome automaticamente
+    const sql = 'select COUNT(id) as quantidade from lista_itens where lista = ? and categoria = ?';
+    const data = [listaId, categoriaId];
+
+    const resultado = await this.db.executeSQL(sql, data);
+    const registro = resultado.rows;
+    let quantidade: number = 0;
+
+    if (registro) {
+      const item = registro.item(0);
+      // Passo para a variavel a quantidade de um produto da lista
+      // Para fazer o incremento
+      quantidade = item.quantidade;
+    }
+
+    // Incremento a quantidade produto
+    quantidade++;
+    return quantidade;
+  }
 }
