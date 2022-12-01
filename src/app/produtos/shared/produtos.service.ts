@@ -77,4 +77,65 @@ export class ProdutosService {
     quantidade++;
     return quantidade;
   }
+
+  // Fazendo um join entra as duas tabelas
+  getSearchQuery(hastextoFiltro: boolean = false) {
+    const sqlBuilder = [];
+    sqlBuilder.push('select ');
+    sqlBuilder.push('c.id categoriaId');
+    sqlBuilder.push('c.nome categoriaNome');
+    sqlBuilder.push('i.id');
+    sqlBuilder.push('i.nome');
+    sqlBuilder.push('i.quantidade');
+    sqlBuilder.push('i.sequencia');
+    sqlBuilder.push('i.comprada');
+    sqlBuilder.push('from');
+    sqlBuilder.push('lista_itens i inner join listas l on i.id = l.id inner join categorias c on i.id = c.i');
+    sqlBuilder.push('where');
+    sqlBuilder.push('i.id = ?');
+    if (hastextoFiltro) {
+      sqlBuilder.push('and i.nome like ?')
+    }
+    sqlBuilder.push('order by c.nome, i.sequencia')
+
+    return sqlBuilder.join(' ');
+  }
+
+  private fillProdutos(linhas: any) {
+    const produtos: any[] = [];
+
+    for (let i = 0; i < linhas.length; i++) {
+      const item = linhas.item(i);
+      const produtoPorCategoria: any = {};
+      produtoPorCategoria.categoriaId = item.categoriaId;
+      produtoPorCategoria.categoriaNome = item.categoriaNome;
+      produtoPorCategoria.id = item.id;
+      produtoPorCategoria.nome = item.nome;
+      produtoPorCategoria.quantidade = item.quantidade;
+      produtoPorCategoria.sequencia = item.sequencia;
+      produtoPorCategoria.comprada = (item.comprada == 1);
+
+      produtos.push(produtoPorCategoria);
+    }
+
+    return produtos;
+  }
+
+  async getAll(lista: number) {
+    const sql = this.getSearchQuery();
+    const data = [lista];
+
+    const resultado = await this.db.executeSQL(sql, data);
+    const produtos = this.fillProdutos(resultado.rows);
+    return produtos;
+  }
+
+  async filter(lista: number, texto: string) {
+    const sql = this.getSearchQuery(true);
+    const data = [lista, `%${texto}%`];
+
+    const resultado = await this.db.executeSQL(sql, data);
+    const produtos = this.fillProdutos(resultado.rows);
+    return produtos;
+  }
 }
